@@ -1,66 +1,72 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonJs from '@rollup/plugin-commonjs';
-import babel from '@rollup/plugin-babel';
-import postCss from 'rollup-plugin-postcss';
+import resolve from "@rollup/plugin-node-resolve";
+import commonJs from "@rollup/plugin-commonjs";
+import babel from "@rollup/plugin-babel";
+import postCss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
-import dts from 'rollup-plugin-dts';
-import { name, homepage, version, dependencies } from './package.json';
+import dts from "rollup-plugin-dts";
+import { name, homepage, version, dependencies } from "./package.json";
+
+const shortName = name.replace("@robbie-cook/", '');
 
 const umdConf = {
-  format: 'umd',
-  name: 'Globe',
-  banner: `// Version ${version} ${name} - ${homepage}`
+  format: "umd",
+  name: "Globe",
+  banner: `// Version ${version} ${shortName} - ${homepage}`,
 };
 
 export default [
   {
-    input: 'src/index.js',
+    input: "src/index.js",
     output: [
       {
         ...umdConf,
-        file: `dist/${name}.js`,
-        sourcemap: true
+        file: `dist/${shortName}.js`,
+        sourcemap: true,
       },
-      { // minify
+      {
+        // minify
         ...umdConf,
-        file: `dist/${name}.min.js`,
-        plugins: [terser({
-          output: { comments: '/Version/' }
-        })]
-      }
+        file: `dist/${shortName}.min.js`,
+        plugins: [
+          terser({
+            output: { comments: "/Version/" },
+          }),
+        ],
+      },
     ],
     plugins: [
       resolve(),
       commonJs(),
       postCss(),
-      babel({ exclude: 'node_modules/**', babelHelpers: 'bundled' })
-    ]
+      babel({ exclude: "node_modules/**", babelHelpers: "bundled" }),
+    ],
   },
-  { // commonJs and ES modules
-    input: 'src/index.js',
+  {
+    // commonJs and ES modules
+    input: "src/index.js",
     output: [
       {
-        format: 'cjs',
-        file: `dist/${name}.common.js`,
-        exports: 'auto'
+        format: "cjs",
+        file: `dist/${shortName}.common.js`,
+        exports: "auto",
       },
       {
-        format: 'es',
-        file: `dist/${name}.module.js`
-      }
+        format: "es",
+        file: `dist/${shortName}.module.js`,
+      },
     ],
     external: Object.keys(dependencies),
-    plugins: [
-      postCss(),
-      babel({ babelHelpers: 'bundled' })
-    ]
+    plugins: [postCss(), babel({ babelHelpers: "bundled" })],
   },
-  { // expose TS declarations
-    input: 'src/index.d.ts',
-    output: [{
-      file: `dist/${name}.d.ts`,
-      format: 'es'
-    }],
-    plugins: [dts()]
-  }
+  {
+    // expose TS declarations
+    input: "src/index.d.ts",
+    output: [
+      {
+        file: `dist/${shortName}.d.ts`,
+        format: "es",
+      },
+    ],
+    plugins: [dts()],
+  },
 ];
