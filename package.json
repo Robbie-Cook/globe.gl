@@ -9,7 +9,7 @@
   "types": "dist/globe.gl.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vasturiano/globe.gl.git"
+    "url": "git+https://github.com/Robbie-Cook/globe.gl.git"
   },
   "keywords": [
     "webgl",
@@ -22,13 +22,13 @@
   ],
   "author": {
     "name": "Vasco Asturiano",
-    "url": "https://bl.ocks.org/vasturiano"
+    "url": "https://bl.ocks.org/Robbie-Cook"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vasturiano/globe.gl/issues"
+    "url": "https://github.com/Robbie-Cook/globe.gl/issues"
   },
-  "homepage": "https://github.com/vasturiano/globe.gl",
+  "homepage": "https://github.com/Robbie-Cook/globe.gl",
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "dev": "rollup -w -c rollup.config.dev.js",
@@ -55,6 +55,7 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
+    "@types/three": "^0.131.0",
     "postcss": "^8.3.6",
     "rimraf": "^3.0.2",
     "rollup": "^2.56.0",
