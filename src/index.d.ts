@@ -1,18 +1,27 @@
-import { Object3D, Scene, Camera, WebGLRenderer, WebGLRendererParameters } from 'three';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { ThreeGlobeGeneric, ConfigOptions as ThreeGlobeConfigOptions } from 'three-globe';
+import {
+  Object3D,
+  Scene,
+  Camera,
+  WebGLRenderer,
+  WebGLRendererParameters,
+} from "three";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import {
+  ThreeGlobeGeneric,
+  ConfigOptions as ThreeGlobeConfigOptions,
+} from "three-globe";
 
 export interface ConfigOptions extends ThreeGlobeConfigOptions {
-  rendererConfig?: WebGLRendererParameters
+  rendererConfig?: WebGLRendererParameters;
 }
 
 type Accessor<In, Out> = Out | string | ((obj: In) => Out);
 type ObjAccessor<T> = Accessor<object, T>;
 
 interface HexBin {
-  points: object[],
-  sumWeight: number,
-  center: { lat: number, lng: number }
+  points: object[];
+  sumWeight: number;
+  center: { lat: number; lng: number };
 }
 
 interface GeoCoords {
@@ -23,7 +32,8 @@ interface GeoCoords {
 
 type PointerEventsFilterFn = (object: Object3D, data?: object) => boolean;
 
-export interface GlobeGenericInstance<ChainableInstance> extends ThreeGlobeGeneric<ChainableInstance> {
+export interface GlobeGenericInstance<ChainableInstance>
+  extends ThreeGlobeGeneric<ChainableInstance> {
   (element: HTMLElement): ChainableInstance;
   resetProps(): ChainableInstance;
   _destructor(): void;
@@ -57,39 +67,100 @@ export interface GlobeGenericInstance<ChainableInstance> extends ThreeGlobeGener
   customLayerLabel(textAccessor: ObjAccessor<string>): ChainableInstance;
 
   // Interaction events
-  onGlobeClick(callback: (coords: { lat, lng }, event: MouseEvent) => void): ChainableInstance;
-  onGlobeRightClick(callback: (coords: { lat, lng }, event: MouseEvent) => void): ChainableInstance;
-  onPointClick(callback: (point: object, event: MouseEvent) => void): ChainableInstance;
-  onPointRightClick(callback: (point: object, event: MouseEvent) => void): ChainableInstance;
-  onPointHover(callback: (point: object | null, prevPoint: object | null) => void): ChainableInstance;
-  onArcClick(callback: (arc: object, event: MouseEvent) => void): ChainableInstance;
-  onArcRightClick(callback: (arc: object, event: MouseEvent) => void): ChainableInstance;
-  onArcHover(callback: (arc: object | null, prevArc: object | null) => void): ChainableInstance;
-  onPolygonClick(callback: (polygon: object, event: MouseEvent) => void): ChainableInstance;
-  onPolygonRightClick(callback: (polygon: object, event: MouseEvent) => void): ChainableInstance;
-  onPolygonHover(callback: (polygon: object | null, prevPolygon: object | null) => void): ChainableInstance;
-  onPathClick(callback: (path: object, event: MouseEvent) => void): ChainableInstance;
-  onPathRightClick(callback: (path: object, event: MouseEvent) => void): ChainableInstance;
-  onPathHover(callback: (path: object | null, prevPath: object | null) => void): ChainableInstance;
-  onHexClick(callback: (hex: HexBin, event: MouseEvent) => void): ChainableInstance;
-  onHexRightClick(callback: (hex: HexBin, event: MouseEvent) => void): ChainableInstance;
-  onHexHover(callback: (hex: HexBin | null, prevHex: HexBin | null) => void): ChainableInstance;
-  onHexPolygonClick(callback: (polygon: object, event: MouseEvent) => void): ChainableInstance;
-  onHexPolygonRightClick(callback: (polygon: object, event: MouseEvent) => void): ChainableInstance;
-  onHexPolygonHover(callback: (polygon: object | null, prevPolygon: object | null) => void): ChainableInstance;
-  onTileClick(callback: (tile: object, event: MouseEvent) => void): ChainableInstance;
-  onTileRightClick(callback: (tile: object, event: MouseEvent) => void): ChainableInstance;
-  onTileHover(callback: (tile: object | null, prevTile: object | null) => void): ChainableInstance;
-  onLabelClick(callback: (label: object, event: MouseEvent) => void): ChainableInstance;
-  onLabelRightClick(callback: (label: object, event: MouseEvent) => void): ChainableInstance;
-  onLabelHover(callback: (label: object | null, prevLabel: object | null) => void): ChainableInstance;
-  onCustomLayerClick(callback: (obj: object, event: MouseEvent) => void): ChainableInstance;
-  onCustomLayerRightClick(callback: (obj: object, event: MouseEvent) => void): ChainableInstance;
-  onCustomLayerHover(callback: (obj: object | null, prevObj: object | null) => void): ChainableInstance;
+  onGlobeClick(
+    callback: (coords: { lat; lng }, event: MouseEvent) => void
+  ): ChainableInstance;
+  onGlobeRightClick(
+    callback: (coords: { lat; lng }, event: MouseEvent) => void
+  ): ChainableInstance;
+  onPointClick(
+    callback: (point: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onPointRightClick(
+    callback: (point: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onPointHover(
+    callback: (point: object | null, prevPoint: object | null) => void
+  ): ChainableInstance;
+  onArcClick(
+    callback: (arc: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onArcRightClick(
+    callback: (arc: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onArcHover(
+    callback: (arc: object | null, prevArc: object | null) => void
+  ): ChainableInstance;
+  onPolygonClick(
+    callback: (polygon: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onPolygonRightClick(
+    callback: (polygon: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onPolygonHover(
+    callback: (polygon: object | null, prevPolygon: object | null) => void
+  ): ChainableInstance;
+  onPathClick(
+    callback: (path: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onPathRightClick(
+    callback: (path: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onPathHover(
+    callback: (path: object | null, prevPath: object | null) => void
+  ): ChainableInstance;
+  onHexClick(
+    callback: (hex: HexBin, event: MouseEvent) => void
+  ): ChainableInstance;
+  onHexRightClick(
+    callback: (hex: HexBin, event: MouseEvent) => void
+  ): ChainableInstance;
+  onHexHover(
+    callback: (hex: HexBin | null, prevHex: HexBin | null) => void
+  ): ChainableInstance;
+  onHexPolygonClick(
+    callback: (polygon: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onHexPolygonRightClick(
+    callback: (polygon: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onHexPolygonHover(
+    callback: (polygon: object | null, prevPolygon: object | null) => void
+  ): ChainableInstance;
+  onTileClick(
+    callback: (tile: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onTileRightClick(
+    callback: (tile: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onTileHover(
+    callback: (tile: object | null, prevTile: object | null) => void
+  ): ChainableInstance;
+  onLabelClick(
+    callback: (label: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onLabelRightClick(
+    callback: (label: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onLabelHover(
+    callback: (label: object | null, prevLabel: object | null) => void
+  ): ChainableInstance;
+  onCustomLayerClick(
+    callback: (obj: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onCustomLayerRightClick(
+    callback: (obj: object, event: MouseEvent) => void
+  ): ChainableInstance;
+  onCustomLayerHover(
+    callback: (obj: object | null, prevObj: object | null) => void
+  ): ChainableInstance;
 
   // Render control
   pointOfView(): GeoCoords;
-  pointOfView(pov: { lat?: number, lng?: number, altitude?: number }, transitionMs?: number): ChainableInstance;
+  pointOfView(
+    pov: { lat?: number; lng?: number; altitude?: number },
+    transitionMs?: number
+  ): ChainableInstance;
   pauseAnimation(): ChainableInstance;
   resumeAnimation(): ChainableInstance;
   enablePointerInteraction(): boolean;
@@ -103,11 +174,15 @@ export interface GlobeGenericInstance<ChainableInstance> extends ThreeGlobeGener
   camera(): Camera;
   renderer(): WebGLRenderer;
   postProcessingComposer(): EffectComposer;
-  controls(): object;
+  controls(): { enableZoom?: boolean };
 
   // Utility
-  getScreenCoords(lat: number, lng: number, altitude?: number): { x: number, y: number };
-  toGlobeCoords(x: number, y: number): { lat: number, lng: number} | null;
+  getScreenCoords(
+    lat: number,
+    lng: number,
+    altitude?: number
+  ): { x: number; y: number };
+  toGlobeCoords(x: number, y: number): { lat: number; lng: number } | null;
 }
 
 export type GlobeInstance = GlobeGenericInstance<GlobeInstance>;
