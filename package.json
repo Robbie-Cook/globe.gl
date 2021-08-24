@@ -32,6 +32,7 @@
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "dev": "rollup -w -c rollup.config.dev.js",
+    "start": "npm run dev",
     "prepare": "npm run build"
   },
   "files": [
